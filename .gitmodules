@@ -1,0 +1,6 @@
+[submodule "vendor/input-switcher"]
+	path = vendor/input-switcher
+	url = https://github.com/marcelhoffs/input-switcher.git
+[submodule "vendor/hidapitester"]
+	path = vendor/hidapitester
+	url = https://github.com/todbot/hidapitester.git

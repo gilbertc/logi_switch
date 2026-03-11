@@ -1,0 +1,113 @@
+{
+  "_comment": "Copy this file to config/local.json on each machine and edit it for that machine's current connection type, channel mapping, and device IDs.",
+  "hidapitester_path": {
+    "Windows": "vendor/input-switcher/windows/hidapitester.exe",
+    "Darwin": "vendor/input-switcher/mac/hidapitester",
+    "Linux": "vendor/input-switcher/linux/hidapitester"
+  },
+  "default_targets": {
+    "Windows": "channel-3",
+    "Darwin": "channel-1",
+    "Linux": "channel-1"
+  },
+  "aliases": {
+    "windows": "channel-1",
+    "mac": "channel-2",
+    "linux": "channel-3"
+  },
+  "targets": {
+    "channel-1": {
+      "description": "Fill this with the device reports for whichever computer is paired on Easy-Switch channel 1 for this clone.",
+      "commands": [
+        {
+          "name": "MX Mechanical Mini",
+          "selector": [
+            "--vidpid",
+            "046D:C548",
+            "--usage",
+            "0x0001",
+            "--usagePage",
+            "0xFF00"
+          ],
+          "length": 7,
+          "report": "0x10,0x01,0x09,0x1e,0x00,0x00,0x00"
+        },
+        {
+          "name": "MX Master 4",
+          "selector": [
+            "--vidpid",
+            "046D:C548",
+            "--usage",
+            "0x0001",
+            "--usagePage",
+            "0xFF00"
+          ],
+          "length": 7,
+          "report": "0x10,0x02,0x0e,0x18,0x00,0x00,0x00"
+        }
+      ]
+    },
+    "channel-2": {
+      "description": "These Windows-side Bolt commands were verified for channel 2 on your current setup.",
+      "commands": [
+        {
+          "name": "MX Mechanical Mini",
+          "selector": [
+            "--vidpid",
+            "046D:C548",
+            "--usage",
+            "0x0001",
+            "--usagePage",
+            "0xFF00"
+          ],
+          "length": 7,
+          "report": "0x10,0x01,0x09,0x1e,0x01,0x00,0x00"
+        },
+        {
+          "name": "MX Master 4",
+          "selector": [
+            "--vidpid",
+            "046D:C548",
+            "--usage",
+            "0x0001",
+            "--usagePage",
+            "0xFF00"
+          ],
+          "length": 7,
+          "report": "0x10,0x02,0x0e,0x18,0x01,0x00,0x00"
+        }
+      ]
+    },
+    "channel-3": {
+      "description": "These channel 3 payloads are the channel 2 payloads with the target byte changed from 0x01 to 0x02. Verify them on your hardware before relying on them.",
+      "commands": [
+        {
+          "name": "MX Mechanical Mini",
+          "selector": [
+            "--vidpid",
+            "046D:C548",
+            "--usage",
+            "0x0001",
+            "--usagePage",
+            "0xFF00"
+          ],
+          "length": 7,
+          "report": "0x10,0x01,0x09,0x1e,0x02,0x00,0x00"
+        },
+        {
+          "name": "MX Master 4",
+          "selector": [
+            "--vidpid",
+            "046D:C548",
+            "--usage",
+            "0x0001",
+            "--usagePage",
+            "0xFF00"
+          ],
+          "length": 7,
+          "report": "0x10,0x02,0x0e,0x18,0x02,0x00,0x00"
+        }
+      ]
+    }
+  }
+}
