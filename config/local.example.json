@@ -1,5 +1,5 @@
 {
-  "_comment": "Copy this file to config/local.json on each machine and edit it for that machine's current connection type, channel mapping, and device IDs.",
+  "_comment": "Copy this file to config/local.json on each machine and edit it for that machine's current connection type, channel mapping, and device IDs. In the 7-byte Bolt reports below, byte 2 (for example 0x01 or 0x02 in 0x10,0x01,...) is the receiver-side device address, while byte 5 (0x00, 0x01, 0x02) is the Easy-Switch channel.",
   "hidapitester_path": {
     "Windows": "vendor/input-switcher/windows/hidapitester.exe",
     "Darwin": "vendor/input-switcher/mac/hidapitester",
@@ -17,7 +17,7 @@
   },
   "targets": {
     "channel-1": {
-      "description": "Fill this with the device reports for whichever computer is paired on Easy-Switch channel 1 for this clone.",
+      "description": "Fill this with the device reports for whichever computer is paired on Easy-Switch channel 1 for this clone. If switching fails, verify both the selector and the report's device address byte; it may not match another machine or the numbering shown in Options+.",
       "commands": [
         {
           "name": "MX Mechanical Mini",
@@ -48,7 +48,7 @@
       ]
     },
     "channel-2": {
-      "description": "These Windows-side Bolt commands were verified for channel 2 on your current setup.",
+      "description": "These Windows-side Bolt commands were verified for channel 2 on your current setup. The second report byte selects which paired device on the receiver to command, and the fifth report byte selects the target Easy-Switch channel.",
       "commands": [
         {
           "name": "MX Mechanical Mini",
@@ -79,7 +79,7 @@
       ]
     },
     "channel-3": {
-      "description": "These channel 3 payloads are the channel 2 payloads with the target byte changed from 0x01 to 0x02. Verify them on your hardware before relying on them.",
+      "description": "These channel 3 payloads are the channel 2 payloads with only the channel byte changed from 0x01 to 0x02. Do not assume the second byte stays correct on a different receiver; verify the device address on your hardware before relying on them.",
       "commands": [
         {
           "name": "MX Mechanical Mini",

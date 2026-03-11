@@ -86,7 +86,7 @@ git submodule update --init --recursive
 
 Copy [config/local.example.json](/home/gcheung/repo/logi_switch/config/local.example.json) to `config/local.json` and edit it.
 
-Each machine keeps its own `config/local.json`. That matters because receiver IDs and device numbering can differ between the Windows-side receiver and the Mac-side receiver.
+Each machine keeps its own `config/local.json`. That matters because receiver IDs and receiver-side device numbering can differ between the Windows-side receiver and the Mac-side receiver, even if Options+ shows a similar device order.
 
 The config is channel-based, with optional aliases:
 
@@ -136,7 +136,12 @@ For Bluetooth switching, the keyboard and mouse usually show up as separate devi
 
 ### 4. Fill in your reports
 
-In the report payload, the channel byte works like this:
+In the 7-byte Bolt report payload, the important bytes are:
+
+- byte 2: receiver-side device address, for example `0x01` for one paired device and `0x02` for another
+- byte 5: Easy-Switch channel byte
+
+The channel byte works like this:
 
 - channel 1 -> `0x00`
 - channel 2 -> `0x01`
@@ -172,6 +177,13 @@ Channel 3: 0x10,0x02,0x0e,0x18,0x02,0x00,0x00
 
 If one side uses Bluetooth instead of Bolt/receiver, use a `length` of `20` and keep device-specific selectors per command. The video description you pasted matches that pattern already.
 
+When debugging a failed Bolt switch, check these in order:
+
+- the `selector` points at the correct receiver for this machine
+- byte 2 in the report matches the paired device address on this receiver
+- byte 5 in the report matches the target Easy-Switch channel
+- the device-specific bytes in the middle of the report match this model
+
 ### 5. Test before binding keys
 
 On Windows:
@@ -198,7 +210,8 @@ On Linux:
 If the dry run looks right but the switch fails, the usual causes are:
 
 - wrong receiver/device ID in `selector`
-- wrong device number inside the report
+- wrong receiver-side device address in byte 2 of the report
+- wrong channel byte in byte 5 of the report
 - wrong report bytes for the mouse
 - different connection type on this machine than you assumed
 
@@ -251,3 +264,4 @@ What remains:
 
 - capture and verify the actual channel 1 mouse report if the inferred/default values do not work on every machine
 - verify the inferred channel 3 mouse report on your hardware
+- document any receiver-specific byte 2 differences you confirm across Windows, macOS, and Linux receivers
